@@ -1,0 +1,51 @@
+OrAndSumEasy:
+You are given pairOr & pairSum and we have to determine if it is possible or not.
+Let’s revisit truth table of OR and SUM
+x	y	x|y
+0	0	0
+0	1	1
+1	0	1
+1	1	1
+x	y	x+y
+0	0	0
+0	1	1
+1	0	1
+1	1	0(1) 
+
+Few facts about the input
+•	OR of two number can never exceed SUM
+•	If OR is even, SUM cannot be odd. See row 1 of above truth tables. Note that converse is not true unless we know of carry bit of previous bit operation. This is explained below.
+•	Another obvious fact is SUM can never exceed OR by more than 1 bit, which is carry bit. Test case like {1, 100} will fall under this category and be solved straightaway.
+To solve further, iterate from lsb of pairSum and pairOr.
+Let’s define truth table for both cases when carry is 0 and carry 1
+To read this table first check the ith bit of pairSum and see what all possible value pairOr can take. If pairOr has expected value, it OK and otherwise return Impossible.
+Note: x & y are just taken for demonstration purpose. They can take any binary value.
+
+
+
+
+
+
+
+
+Carry: 1
+pairSumi	x	y	Carry 
+forward	Expected OR	pairOri
+0	1	0	1	1	0
+0	1	0	1	1	1
+1	0	0	0	0	0
+1	1	1	1	1	1
+
+
+
+Carry: 0
+pairSumi	x	y	Carry 
+forward	Expected OR	pairOri
+0	0	0	0	0	0
+0	1	1	1	1	1
+1	0	1	0	1	0
+1	0	1	0	1	1
+
+Exit Condition: Loop keep right-shifting pairOr and pairSum. Once pairOr reaches 0, test if carry and pairSum holds same value, if yes exit otherwise it’s Impossible. 
+Code: we have to code the above two truth table for condition in red and yellow (carry bit changes here).
+
